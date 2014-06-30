@@ -1,8 +1,70 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mashup</title>
+    <title>My First Mashup</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html, body 
+      { 
+          height: 100% 
+      }
+      #map-canvas1, #map-canvas2, #map-canvas3, #map-canvas4, #map-canvas5      
+      {
+          height: 45%;
+          width: 45%;
+          margin: 0px auto;
+      }
+    </style>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDo8_6tFuf3UJA8rwwQ_VeTPzmgXIFx1BY"></script>
+    <script type="text/javascript">
+      function initialize() {
+          //Array of Latitudes
+          var lat = [38.897676, 38.889269, 38.889463, 38.896655, 38.889939];
+
+          //Array of Longitudes
+          var long = [-77.03653, -77.050176, -77.035237, -77.025812, -77.00905];
+
+          //Array of Landmark Ids
+          var LandMarkId = ["Our President's Residence", "The Man who set slaves free", "Father of our nation", "Where Lincoln was assasinated", "Where laws are passed"];
+
+          //Loops through the arrays
+           for(var i = 0; i < 5; i++)
+           {
+                //Gets the new map location based on the latitude and longitude
+               var myLatlng = new google.maps.LatLng(lat[i], long[i]);
+
+               //Sets up the maps options by centering the location at the latitude and longitude and then zooming in
+               var mapOptions = {
+                    center: myLatlng,
+                    zoom: 17
+                };
+
+               //Puts the map at the appropriate 'map-canvas#' location on screen
+               var map = new google.maps.Map(document.getElementById("map-canvas" + (i+1)), mapOptions);
+               
+               //Puts a red marker showing the exact location
+               var marker = new google.maps.Marker({
+                            position: myLatlng,
+                            map: map,
+                            title: LandMarkId[i]    //hovering over the marker, displays unique landmark id
+               });
+           }
+      }
+      //Loads the website with the google map locations when window loads
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
   </head>
   <body>
+    <h2 align="center">Mashup: Places I want to revisit in D.C.</h2>
+    <h3 align="center">The White House</h3>
+    <div id="map-canvas1">White House</div>
+    <h3 align="center">Lincoln Memorial</h3>
+    <div id="map-canvas2">Lincoln Memorial</div>
+    <h3 align="center">Washington Monument</h3>    
+    <div id="map-canvas3">Washington Monument</div>
+    <h3 align="center">Ford's Theatre</h3>
+    <div id="map-canvas4">Ford's Theatre</div>
+    <h3 align="center">U.S. Capitol</h3>
+    <div id="map-canvas5">U.S. Capitol</div>
   </body>
 </html>
